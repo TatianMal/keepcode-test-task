@@ -1,0 +1,45 @@
+@import './base.css';
+
+#app {
+  /* max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal; */
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding: 0;
+}
+
+a {
+  color: var(--blue);
+  transition: 0.4s;
+}
+
+.primary-action-btn {
+  min-width: 220px;
+  padding: 17px 24px;
+  border: none;
+  border-radius: 10px;
+
+  background-color: var(--yellow);
+  color: var(--white);
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 19.2px;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 28.8px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: var(--dark-blue);
+  }
+}
