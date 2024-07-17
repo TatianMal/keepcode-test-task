@@ -5,7 +5,7 @@ import BaseInfoItem from '@/components/base/BaseInfoItem.vue'
 import IconEdit from '@/components/icons/IconEdit.vue'
 import IconBin from '@/components/icons/IconBin.vue'
 
-import StudentStatus from '@/components/student/StudentStatus.vue'
+import BaseStatus from '@/components/base/BaseStatus.vue'
 </script>
 
 <template>
@@ -13,17 +13,21 @@ import StudentStatus from '@/components/student/StudentStatus.vue'
     <article class="user-info">
       <div class="general-info">
         <img src="@/assets/img/avatar_student.png" alt="av" class="general-info__avatar" />
-        <div class="general-info__name">Абрамова Екатерина</div>
+        <h1 class="general-info__name">Абрамова Екатерина</h1>
         <img src="@/assets/img/gender_female.svg" class="general-info__gender" />
         <div class="general-info-social">
-          <div class="general-info-social__icons"></div>
+          <div class="general-info-social__icons">
+            <img src="@/assets/img/icon_telegram.svg" width="25px" alt="icon telegram" />
+            <img src="@/assets/img/icon_whatsapp.svg" width="25px" alt="icon whatsapp" />
+            <img src="@/assets/img/icon_viber.svg" width="25px" alt="icon viber" />
+          </div>
           <a href="#">Комментарии</a>
         </div>
       </div>
       <BaseInfoItem class="status">
         <template #label>Статус</template>
         <template #value>
-          <StudentStatus />
+          <BaseStatus :success="true">Активен</BaseStatus>
         </template>
       </BaseInfoItem>
       <div class="personal-info">
@@ -65,6 +69,7 @@ import StudentStatus from '@/components/student/StudentStatus.vue'
   display: grid;
   grid-template-columns: 112px 1fr 12px;
   grid-template-rows: 1fr 1fr;
+  gap: 30px;
 }
 
 .general-info__avatar {
@@ -79,16 +84,24 @@ import StudentStatus from '@/components/student/StudentStatus.vue'
   grid-column: 3/4;
   grid-row: 1/3;
   align-self: start;
+  justify-self: center;
 }
 .general-info-social {
-  grid-column: 3/4;
-  grid-row: 1/3;
+  grid-column: 2/4;
+  grid-row: 2/3;
+
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+
+  font-size: 18px;
+  line-height: 21.6px;
 }
 .general-info-social__icons {
   display: flex;
   flex-direction: row;
   gap: 0 10px;
-  margin: 0 30px;
 }
 
 .status {
@@ -106,5 +119,7 @@ import StudentStatus from '@/components/student/StudentStatus.vue'
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  color: var(--dark-grey);
 }
 </style>

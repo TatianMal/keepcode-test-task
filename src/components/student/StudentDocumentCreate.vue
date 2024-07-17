@@ -9,10 +9,10 @@ import { StudentDocumentType } from '@/api/models/StudentDocumentType'
 const getNewDocument = () => {
   const res = new FormData()
   res.set('name', 'Документ каст') // name + number
-  res.set('type', StudentDocumentType.CONTRACT) // name + number
-  res.set('dateStart', '2024-07-14T00:00:00.000Z') // name + number
-  res.set('dateEnd', '2025-07-14T00:00:00.000Z') // name + number
-  res.set('ext', DocumentExtension.PDF) // name + number
+  res.set('type', StudentDocumentType.CONTRACT)
+  res.set('dateStart', '14.07.2024')
+  res.set('dateEnd', '14.07.2025')
+  res.set('ext', DocumentExtension.PDF)
   return res
 }
 

@@ -2,6 +2,7 @@
 import { defineProps, computed } from 'vue'
 
 import BaseCard from '@/components/base/BaseCard.vue'
+import BaseStatus from '@/components/base/BaseStatus.vue'
 
 import IconPrinter from '@/components/icons/IconPrinter.vue'
 import IconEdit from '@/components/icons/IconEdit.vue'
@@ -14,6 +15,7 @@ import IconFileXls from '@/components/icons/file/IconFileXls.vue'
 
 import type { StudentDocument } from '@/api/models/StudentDocument'
 import { DocumentExtension } from '@/api/models/DocumentExtension'
+import { StudentDocumentStatus } from '@/api/models/StudentDocumentStatus'
 
 interface IProps {
   document: StudentDocument
@@ -35,16 +37,35 @@ const dates = computed(() => {
     ? `${props.document.dateStart} - ${props.document.dateEnd}`
     : props.document.dateStart
 })
+
+const mapStatuses = {
+  [StudentDocumentStatus.CONCLUDED]: {
+    label: 'Заключен',
+    isSuccess: true
+  },
+  [StudentDocumentStatus.TERMINATED]: {
+    label: 'Расторгнут',
+    isSuccess: false
+  }
+}
+const currentStatus = computed(() => {
+  return props.document.status ? mapStatuses[props.document.status] : null
+})
 </script>
 
 <template>
   <BaseCard class="student-document-wrapper">
     <section class="student-document">
       <h2 class="student-document__name">{{ document.name }}</h2>
-      <div class="student-document__status">{{ document.status }}</div>
-      <!-- // component -->
+      <div>
+        <BaseStatus
+          v-if="document.status"
+          :success="currentStatus?.isSuccess"
+          class="student-document__status"
+          >{{ currentStatus?.label }}</BaseStatus
+        >
+      </div>
       <div class="student-document__dates">{{ dates }}</div>
-      <!-- // time?? -->
       <div class="student-document__actions">
         <IconPrinter />
         <IconEdit />
@@ -76,15 +97,23 @@ const dates = computed(() => {
 }
 .student-document__status {
   grid-row: 2/3;
+
+  font-size: 18px;
+  line-height: 21.6px;
 }
 .student-document__dates {
   grid-row: 3/4;
+  font-size: 18px;
+  line-height: 21.6px;
+  color: var(--color-text-secondary);
 }
 .student-document__actions {
   grid-row: 4/5;
   display: flex;
   flex-direction: row;
   gap: 0 30px;
+
+  color: var(--dark-grey);
 }
 
 .doc-type {

@@ -36,8 +36,11 @@ import IconLogOut from '@/components/icons/IconLogOut.vue'
 .breadcrumps {
   display: flex;
   flex-direction: row;
-  gap: 0 4px;
+  gap: 0 6px;
   color: var(--color-text-primary);
+
+  font-size: 14px;
+  line-height: 16.8px;
 }
 .breadcrumps__item {
   cursor: pointer;
@@ -64,8 +67,13 @@ import IconLogOut from '@/components/icons/IconLogOut.vue'
   gap: 0 24px;
 }
 
-.username {
-  margin-left: 10px;
-  vertical-align: center;
+.user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0 10px;
+
+  font-size: 18px;
+  line-height: 21.6px;
 }
 </style>

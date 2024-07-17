@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, onBeforeMount, ref, type Ref, computed } from 'vue'
+import { onBeforeMount, ref, type Ref, computed } from 'vue'
 
 import BaseModal from '@/components/base/BaseModal.vue'
 
@@ -92,7 +92,7 @@ const showModal = () => {
     <section class="document-info__actions">
       <section class="filter-list">
         <div class="filter">
-          Тип документа
+          <span class="filter-label">Тип документа</span>
           <v-select
             v-model="filters.type"
             label="label"
@@ -102,7 +102,7 @@ const showModal = () => {
           ></v-select>
         </div>
         <div class="filter">
-          Статус
+          <span class="filter-label">Статус</span>
           <v-select
             v-model="filters.status"
             label="label"
@@ -111,7 +111,7 @@ const showModal = () => {
           ></v-select>
         </div>
         <div class="filter">
-          Сортировать по
+          <span class="filter-label">Сортировать по</span>
           <v-select :value="filters.sort" label="label" :options="sortOptions" disabled></v-select>
         </div>
       </section>
@@ -156,6 +156,13 @@ const showModal = () => {
   display: flex;
   flex-direction: column;
   width: 100px;
+}
+
+.filter-label {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.8px;
+  color: var(--color-text-secondary);
 }
 
 .doc-list {
