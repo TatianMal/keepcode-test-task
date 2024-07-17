@@ -1,5 +1,25 @@
 <script setup lang="ts">
+import { defineEmits, ref } from 'vue'
+
 import IconPlus from '@/components/icons/IconPlus.vue'
+
+import { DocumentExtension } from '@/api/models/DocumentExtension'
+import { StudentDocumentType } from '@/api/models/StudentDocumentType'
+
+const getNewDocument = () => {
+  const res = new FormData()
+  res.set('name', 'Документ каст') // name + number
+  res.set('type', StudentDocumentType.CONTRACT) // name + number
+  res.set('dateStart', '2024-07-14T00:00:00.000Z') // name + number
+  res.set('dateEnd', '2025-07-14T00:00:00.000Z') // name + number
+  res.set('ext', DocumentExtension.PDF) // name + number
+  return res
+}
+
+interface IEmits {
+  (event: 'onNewDocument', body: any): void
+}
+defineEmits<IEmits>()
 </script>
 
 <template>
@@ -68,7 +88,9 @@ import IconPlus from '@/components/icons/IconPlus.vue'
       </div>
     </form>
     <footer class="student-document-create__actions">
-      <button class="primary-action-btn">Добавить документ</button>
+      <button class="primary-action-btn" @click="$emit('onNewDocument', getNewDocument())">
+        Добавить документ
+      </button>
       <button class="secondary-action-btn">отмена</button>
     </footer>
   </article>

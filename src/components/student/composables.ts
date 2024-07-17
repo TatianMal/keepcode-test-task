@@ -8,13 +8,22 @@ const client = new HTTPClient(
 )
 
 export const useStudentDocuments = () => {
-  const getDocuments = async (): Promise<StudentDocument[]> => {
+  const getDocuments = async () => {
     const { data } = await client.fetch<StudentDocumentList>({
       method: HTTPMethod.GET
     })
     return data
   }
+  const createDocument = async (body: any) => {
+    // form data or interface??
+    const data = await client.fetch<StudentDocument>({
+      method: HTTPMethod.POST,
+      body
+    })
+    return data
+  }
   return {
-    getDocuments
+    getDocuments,
+    createDocument
   }
 }
