@@ -1,5 +1,12 @@
 <script setup lang="ts">
+import { defineEmits } from 'vue'
+
 import StudentDocument from '@/components/student/StudentDocument.vue'
+
+interface IEmits {
+  (event: 'createNewDoc'): void
+}
+defineEmits<IEmits>()
 </script>
 
 <template>
@@ -10,9 +17,11 @@ import StudentDocument from '@/components/student/StudentDocument.vue'
         <div class="filter">Статус Не выбрано Заключен Расторгнут</div>
         <div class="filter">Сортировать по Дате Типу документа</div>
       </section>
-      <button class="primary-action-btn">добавить документ</button>
+      <button class="primary-action-btn" @click="$emit('createNewDoc')">добавить документ</button>
     </section>
     <section class="doc-list">
+      <StudentDocument class="doc-list__item" />
+      <StudentDocument class="doc-list__item" />
       <StudentDocument class="doc-list__item" />
       <StudentDocument class="doc-list__item" />
       <StudentDocument class="doc-list__item" />
@@ -36,5 +45,12 @@ import StudentDocument from '@/components/student/StudentDocument.vue'
   display: flex;
   flex-direction: row;
   gap: 164px;
+}
+
+.doc-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto-fit, max-content);
+  gap: 28px;
 }
 </style>

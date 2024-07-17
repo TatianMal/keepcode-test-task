@@ -10,6 +10,7 @@
   --light-grey: #f2f5f8;
 
   --yellow: #ffbd27;
+  --orange: #fe6845;
 
   /*disable #D5DADF*/
 
@@ -18,7 +19,8 @@
   --color-button: var(--yellow);
   --color-text-primary: var(--dark-blue);
   --color-text-secondary: var(--dark-grey);
-  --shadow-color: rgba(0, 0, 0, 10%);
+  --color-shadow: rgba(0, 0, 0, 10%);
+  --color-required: var(--orange);
 }
 
 *,

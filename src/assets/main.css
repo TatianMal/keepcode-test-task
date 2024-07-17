@@ -17,18 +17,33 @@ a {
   transition: 0.4s;
 }
 
-.primary-action-btn {
+button {
   min-width: 220px;
   padding: 17px 24px;
   border: none;
   border-radius: 10px;
 
-  background-color: var(--yellow);
-  color: var(--white);
   text-transform: uppercase;
   font-weight: 800;
   font-size: 16px;
   line-height: 19.2px;
+}
+
+.primary-action-btn {
+  background-color: var(--yellow);
+  color: var(--white);
+}
+
+.secondary-action-btn {
+  background-color: var(--grey);
+  color: var(--white);
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 43.2px;
+  font-weight: 700;
+  color: var(--blue);
 }
 
 h2 {

@@ -12,6 +12,6 @@
   padding: 20px;
   border-radius: 10px;
 
-  box-shadow: 0 4px 5px var(--shadow-color);
+  box-shadow: 0 4px 5px var(--color-shadow);
 }
 </style>
