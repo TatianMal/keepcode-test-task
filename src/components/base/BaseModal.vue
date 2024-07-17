@@ -71,6 +71,8 @@ defineExpose({
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  margin-bottom: 50px;
 }
 
 .base-modal__content-wrapper {

@@ -29,6 +29,7 @@ const createAndAddDocument = async (body: any) => {
   } catch (error) {
     console.error(error)
   }
+  closeModal()
 }
 
 const docTypes = [
@@ -84,6 +85,9 @@ const filteredDocuments = computed<Array<StudentDocumentModel>>(() => {
 const modal = ref<InstanceType<typeof BaseModal>>()
 const showModal = () => {
   modal.value?.show()
+}
+const closeModal = () => {
+  modal.value?.close()
 }
 </script>
 

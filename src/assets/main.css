@@ -35,8 +35,11 @@ button {
 }
 
 .secondary-action-btn {
-  background-color: var(--grey);
+  background-color: var(--light-blue);
   color: var(--white);
+}
+.secondary-action-btn:disabled {
+  background-color: var(--grey);
 }
 
 h1 {
