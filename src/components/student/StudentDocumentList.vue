@@ -1,7 +1,19 @@
 <script setup lang="ts">
-import { defineEmits } from 'vue'
+import { defineEmits, onBeforeMount, ref } from 'vue'
 
 import StudentDocument from '@/components/student/StudentDocument.vue'
+
+import type { StudentDocument as StudentDocumentModel } from '@/api/models/StudentDocument'
+import { useStudentDocuments } from '@/components/student/composables'
+
+const { getDocuments } = useStudentDocuments()
+const documents = ref<Array<StudentDocumentModel>>([])
+// отдельный ref для ускорения разработки
+const filteredDocuments = ref<Array<StudentDocumentModel>>([])
+onBeforeMount(async () => {
+  documents.value = await getDocuments()
+  filteredDocuments.value = [...documents.value]
+})
 
 interface IEmits {
   (event: 'createNewDoc'): void
@@ -20,11 +32,12 @@ defineEmits<IEmits>()
       <button class="primary-action-btn" @click="$emit('createNewDoc')">добавить документ</button>
     </section>
     <section class="doc-list">
-      <StudentDocument class="doc-list__item" />
-      <StudentDocument class="doc-list__item" />
-      <StudentDocument class="doc-list__item" />
-      <StudentDocument class="doc-list__item" />
-      <StudentDocument class="doc-list__item" />
+      <StudentDocument
+        v-for="doc in filteredDocuments"
+        :key="doc.id"
+        :document="doc"
+        class="doc-list__item"
+      />
     </section>
   </article>
 </template>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { defineProps, computed } from 'vue'
+
 import BaseCard from '@/components/base/BaseCard.vue'
 
 import IconPrinter from '@/components/icons/IconPrinter.vue'
@@ -9,15 +11,39 @@ import IconFileDoc from '@/components/icons/file/IconFileDoc.vue'
 import IconFileJpg from '@/components/icons/file/IconFileJpg.vue'
 import IconFilePdf from '@/components/icons/file/IconFilePdf.vue'
 import IconFileXls from '@/components/icons/file/IconFileXls.vue'
+
+import type { StudentDocument } from '@/api/models/StudentDocument'
+import { DocumentExtension } from '@/api/models/DocumentExtension'
+
+interface IProps {
+  document: StudentDocument
+}
+const props = defineProps<IProps>()
+
+const mapExtToComponent = {
+  [DocumentExtension.DOC]: IconFileDoc,
+  [DocumentExtension.JPG]: IconFileJpg,
+  [DocumentExtension.PDF]: IconFilePdf,
+  [DocumentExtension.XLS]: IconFileXls
+}
+const fileComponent = computed(() => {
+  return mapExtToComponent[props.document.ext]
+})
+
+const dates = computed(() => {
+  return props.document.dateEnd
+    ? `${props.document.dateStart} - ${props.document.dateEnd}`
+    : props.document.dateStart
+})
 </script>
 
 <template>
   <BaseCard class="student-document-wrapper">
     <section class="student-document">
-      <h2 class="student-document__name">Договор №001</h2>
-      <div class="student-document__status">Заключен</div>
+      <h2 class="student-document__name">{{ document.name }}</h2>
+      <div class="student-document__status">{{ document.status }}</div>
       <!-- // component -->
-      <div class="student-document__dates">04.07.2021 - 04.07.2022</div>
+      <div class="student-document__dates">{{ dates }}</div>
       <!-- // time?? -->
       <div class="student-document__actions">
         <IconPrinter />
@@ -27,15 +53,13 @@ import IconFileXls from '@/components/icons/file/IconFileXls.vue'
     </section>
 
     <div class="doc-type">
-      <IconFilePdf />
+      <component :is="fileComponent" />
     </div>
   </BaseCard>
 </template>
 
 <style scoped>
 .student-document-wrapper {
-  max-width: 378px;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -58,6 +82,9 @@ import IconFileXls from '@/components/icons/file/IconFileXls.vue'
 }
 .student-document__actions {
   grid-row: 4/5;
+  display: flex;
+  flex-direction: row;
+  gap: 0 30px;
 }
 
 .doc-type {
