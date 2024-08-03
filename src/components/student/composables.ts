@@ -3,10 +3,10 @@ import { HTTPMethod } from '@/api/HTTPMethod'
 import type { StudentDocument } from '@/api/models/StudentDocument'
 import type { StudentDocumentList } from '@/api/models/StudentDocumentList'
 
-const client = new HTTPClient(
-  'https://09a071ee-da81-4e24-8e7e-5c58ac2d7b8f.mock.pstmn.io/documents'
-)
+const client = new HTTPClient(import.meta.env.VITE_APP_URL)
 
+// Usually I use store or smth like a wrapper around raw network requests
+// but for test task I decided use composables as incapsulation layer
 export const useStudentDocuments = () => {
   const getDocuments = async () => {
     const { data } = await client.fetch<StudentDocumentList>({
