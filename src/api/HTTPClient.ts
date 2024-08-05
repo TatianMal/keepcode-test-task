@@ -6,7 +6,7 @@ export class HTTPClient {
   async fetch<T>(params: RequestParams): Promise<T> {
     const { method, body } = params
     const headers = {}
-    // set content type?
+    // TODO: set content type
     try {
       const response = await fetch(this.url, {
         method,

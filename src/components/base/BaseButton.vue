@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { defineProps, withDefaults, computed } from 'vue'
+import { defineProps, withDefaults, defineEmits, computed } from 'vue'
 
 import { ButtonTypes } from '@/components/base/types'
 
 interface IProps {
   type: ButtonTypes
-  disabled: boolean
+  disabled?: boolean
 }
 const props = withDefaults(defineProps<IProps>(), {
   disabled: false
@@ -13,15 +13,20 @@ const props = withDefaults(defineProps<IProps>(), {
 
 const mapTypesClasses = {
   [ButtonTypes.PRIMARY]: 'primary-action-btn',
-  [ButtonTypes.SECONDARY]: 'primary-action-btn'
+  [ButtonTypes.SECONDARY]: 'secondary-action-btn'
 }
 const btnClass = computed(() => {
   return mapTypesClasses[props.type]
 })
+
+interface IEmits {
+  (event: 'onClick', value: Event): void
+}
+defineEmits<IEmits>()
 </script>
 
 <template>
-  <button :class="btnClass" :disabled="disabled" @click="$emit('click', $event)">
+  <button :class="btnClass" :disabled="disabled" @click.stop="$emit('onClick', $event)">
     <slot />
   </button>
 </template>
@@ -37,6 +42,8 @@ button {
   font-weight: 800;
   font-size: 16px;
   line-height: 19.2px;
+
+  cursor: pointer;
 }
 
 .primary-action-btn {
@@ -45,10 +52,10 @@ button {
 }
 
 .secondary-action-btn {
-  background-color: var(--light-blue);
+  background-color: var(--dark-grey);
   color: var(--white);
 }
 .secondary-action-btn:disabled {
-  background-color: var(--grey);
+  background-color: var(--color-disabled);
 }
 </style>

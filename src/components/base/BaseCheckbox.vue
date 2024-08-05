@@ -22,7 +22,7 @@ const labelClasses = computed(() => {
 
 <template>
   <label class="checkbox">
-    <input type="checkbox" v-model="model" :name="name" class="checkbox-input" />
+    <input v-model="model" type="checkbox" :name="name" class="checkbox-input" />
     <span :class="labelClasses">{{ label }}</span>
   </label>
 </template>

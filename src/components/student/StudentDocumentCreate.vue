@@ -6,6 +6,7 @@ import BaseRadioGroup from '@/components/base/BaseRadioGroup.vue'
 import BaseFileLoad from '@/components/base/BaseFileLoad.vue'
 import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
+import BaseCalendar from '@/components/base/BaseCalendar.vue'
 
 import { type RadioOption } from '@/components/base/types'
 import { ButtonTypes } from '@/components/base/types'
@@ -18,14 +19,30 @@ const name = ref('')
 const number = ref('')
 const shouldNotifyEnd = ref(false)
 const shouldCreateTaskEnd = ref(false)
+const file = ref<File>()
+const dateStart = ref<string>()
+const dateEnd = ref<string>()
+
+const getAPIDate = (date: Date) => {
+  const day = date.getDate()
+  const month = date.getMonth()
+  return `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${date.getFullYear()}`
+}
 
 const getNewDocument = () => {
   const res = new FormData()
   res.set('name', `${name.value} ${number.value}`)
   res.set('type', type.value)
-  res.set('dateStart', '14.07.2024')
-  res.set('dateEnd', '14.07.2025')
   res.set('ext', DocumentExtension.PDF)
+
+  if (dateStart.value) {
+    const dateStartFormatted = getAPIDate(new Date(dateStart.value))
+    res.set('dateStart', dateStartFormatted)
+  }
+  if (dateEnd.value) {
+    const dateEndFormatted = getAPIDate(new Date(dateEnd.value))
+    res.set('dateEnd', dateEndFormatted)
+  }
   return res
 }
 
@@ -46,6 +63,7 @@ const radioOptions: RadioOption[] = [
 
 interface IEmits {
   (event: 'onNewDocument', body: any): void
+  (event: 'cancelCreatingDocument'): void
 }
 defineEmits<IEmits>()
 </script>
@@ -66,18 +84,12 @@ defineEmits<IEmits>()
 
       <fieldset class="date-set">
         <legend class="visually-hidden">Действует с:</legend>
-        <span class="date-legend" aria-hidden="true">
+        <span class="date-legend">
           <span class="required-field">Действует с:</span>
         </span>
-        <div>
-          <label for="dateStart">Не выбрано</label>
-          <input type="date" name="dateStart" id="dateStart" />
-        </div>
-        <span class="date-legend" aria-hidden="true">по:</span>
-        <div>
-          <label for="dateEnd">Не выбрано</label>
-          <input type="date" name="dateEnd" id="dateEnd" />
-        </div>
+        <BaseCalendar v-model="dateStart" name="dateStart"></BaseCalendar>
+        <span class="date-legend">по:</span>
+        <BaseCalendar v-model="dateEnd" name="dateEnd"></BaseCalendar>
       </fieldset>
 
       <div class="settings">
@@ -88,13 +100,15 @@ defineEmits<IEmits>()
           name="createTaskEnd"
         />
       </div>
-      <BaseFileLoad />
+      <BaseFileLoad @fileUpload="($event) => (file = $event)" />
     </form>
     <footer class="student-document-create__actions">
-      <BaseButton :type="ButtonTypes.PRIMARY" @click="$emit('onNewDocument', getNewDocument())">
+      <BaseButton :type="ButtonTypes.PRIMARY" @onClick="$emit('onNewDocument', getNewDocument())">
         Добавить документ
       </BaseButton>
-      <BaseButton :type="ButtonTypes.SECONDARY" disabled>отмена</BaseButton>
+      <BaseButton :type="ButtonTypes.SECONDARY" @onClick="$emit('cancelCreatingDocument')"
+        >отмена</BaseButton
+      >
     </footer>
   </article>
 </template>

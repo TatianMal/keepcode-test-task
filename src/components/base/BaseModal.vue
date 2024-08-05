@@ -1,14 +1,7 @@
 <script setup lang="ts">
-import { defineProps, withDefaults, defineEmits, ref, defineExpose } from 'vue'
+import { defineEmits, ref, defineExpose } from 'vue'
 
 import IconDelete from '@/components/icons/IconDelete.vue'
-
-// interface IProps {
-//   opened?: boolean,
-// }
-// withDefaults(defineProps<IProps>(), {
-//   opened: false
-// })
 
 const visible = ref(false)
 

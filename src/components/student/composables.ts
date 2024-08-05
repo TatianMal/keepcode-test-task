@@ -15,7 +15,6 @@ export const useStudentDocuments = () => {
     return data
   }
   const createDocument = async (body: any) => {
-    // form data or interface??
     const data = await client.fetch<StudentDocument>({
       method: HTTPMethod.POST,
       body

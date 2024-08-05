@@ -101,19 +101,20 @@ const closeModal = () => {
           <span class="filter-label">Тип документа</span>
           <v-select
             v-model="filters.type"
-            label="label"
             :reduce="reducer"
-            placeholder="Не выбрано"
             :options="docTypes"
+            label="label"
+            placeholder="Не выбрано"
           ></v-select>
         </div>
         <div class="filter">
           <span class="filter-label">Статус</span>
           <v-select
             v-model="filters.status"
+            :reduce="reducer"
+            :options="docStatuses"
             label="label"
             placeholder="Не выбрано"
-            :options="docStatuses"
           ></v-select>
         </div>
         <div class="filter">
@@ -134,7 +135,10 @@ const closeModal = () => {
     <BaseModal ref="modal">
       <template #title>Добавить документ</template>
       <template #content>
-        <StudentDocumentCreate @onNewDocument="createAndAddDocument($event)" />
+        <StudentDocumentCreate
+          @onNewDocument="createAndAddDocument($event)"
+          @cancelCreatingDocument="closeModal"
+        />
       </template>
     </BaseModal>
   </article>
