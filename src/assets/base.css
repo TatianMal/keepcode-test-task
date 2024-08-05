@@ -22,6 +22,7 @@
   --color-text-secondary: var(--dark-grey);
   --color-shadow: rgba(0, 0, 0, 10%);
   --color-required: var(--orange);
+  --color-disabled: #d5dadf;
 }
 
 *,
@@ -36,13 +37,7 @@ body {
   min-height: 100vh;
   color: var(--color-text-primary);
   background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
   line-height: 1.6em;
   font-family: 'Alegreya Sans', sans-serif;
   font-size: 15px;
-  /* text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
 }

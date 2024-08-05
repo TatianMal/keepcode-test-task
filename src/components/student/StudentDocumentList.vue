@@ -5,7 +5,9 @@ import BaseModal from '@/components/base/BaseModal.vue'
 
 import StudentDocument from '@/components/student/StudentDocument.vue'
 import StudentDocumentCreate from '@/components/student/StudentDocumentCreate.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
+import { ButtonTypes } from '@/components/base/types'
 import type { StudentDocument as StudentDocumentModel } from '@/api/models/StudentDocument'
 import { useStudentDocuments } from '@/components/student/composables'
 import { StudentDocumentStatus } from '@/api/models/StudentDocumentStatus'
@@ -119,7 +121,7 @@ const closeModal = () => {
           <v-select :value="filters.sort" label="label" :options="sortOptions" disabled></v-select>
         </div>
       </section>
-      <button class="primary-action-btn" @click="showModal">добавить документ</button>
+      <BaseButton :type="ButtonTypes.PRIMARY" @click="showModal">добавить документ</BaseButton>
     </section>
     <section class="doc-list">
       <StudentDocument
